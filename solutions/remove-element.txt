@@ -1,0 +1,16 @@
+
+# Iterate linearly over the nums array.
+# Find the nums with val and replace it with something else.
+# Sort the elements and return the count 
+
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        count = 0
+        for i in range(len(nums)):
+            if nums[i] == val:
+                nums[i] = 51
+                count += 1
+    
+        nums[:] = sorted(nums)
+
+        return len(nums) - count

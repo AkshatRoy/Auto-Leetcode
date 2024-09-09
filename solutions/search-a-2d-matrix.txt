@@ -1,0 +1,22 @@
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        def binarySearch(row,target):
+            # print("searching row")
+            l = 0
+            r = len(row)-1
+            while(l<=r):
+                middle = (l+r) // 2
+                if(row[middle] == target):
+                    return True
+                elif(row[middle] < target):
+                    l = middle + 1
+                elif(row[middle] > target):
+                    r = middle - 1
+            return False
+        if(matrix[-1][-1] < target):
+            return False
+        for row in matrix:
+            if(target<= row[-1]):
+                return binarySearch(row, target)
+        return False
+    

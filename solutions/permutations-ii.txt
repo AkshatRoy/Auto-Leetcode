@@ -1,0 +1,20 @@
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        p = []
+        v = [False] * len(nums)
+        def backtrack():
+            if len(p) == len(nums):
+                ans.append(p[:])
+                return
+            used = set()
+            for i in range(len(nums)):
+                if not v[i] and nums[i] not in used:
+                    v[i] = True
+                    p.append(nums[i])
+                    used.add(nums[i])
+                    backtrack()
+                    v[i] = False
+                    p.pop()
+        backtrack()
+        return ans

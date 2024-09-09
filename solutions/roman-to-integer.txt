@@ -1,0 +1,75 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        # s=str(s)
+        # l=list(s)
+        # print(l)
+        # totalsum=0
+        # length=len(l)
+        # for i in range(0,length):
+        #     j=i+1
+        #     if j<length:
+        #         if l[i]=="I":
+        #             if l[i]=="I" and l[j]!="V" and l[j]!="X":
+        #                 totalsum=totalsum+1
+        #                 i=i+1
+        #                 print(totalsum)
+        #             elif l[i]=="I" and l[j]=="V":
+        #                 totalsum=totalsum+4
+        #                 i=i+1
+        #                 print(totalsum)
+        #             elif l[i]=="I" and l[j]=="X":
+        #                 totalsum=totalsum+9
+        #                 i=i+1
+        #                 print(totalsum)
+
+        #         elif l[i]=="V":
+        #             totalsum=totalsum+5
+
+        #         elif l[i]=="X":
+        #             if l[i]=="X" and l[j]!="L" or l[j]!="C":
+        #                 totalsum=totalsum+10
+        #                 i=i+1
+        #             elif l[i]=="X" and l[j]=="L":
+        #                 totalsum=totalsum+40
+        #                 i=i+1
+        #             elif l[i]=="X" and l[j]=="C":
+        #                 totalsum=totalsum+90
+        #                 i=i+1
+
+        #         if l[i]=="L":
+        #             totalsum=totalsum+50
+
+        #         elif l[i]=="C":
+        #             if l[i]=="C" and l[j]!="D" or l[j]!="M":
+        #                 totalsum=totalsum+100
+        #                 i=i+1
+        #             elif l[i]=="C" and l[j]=="D":
+        #                 totalsum=totalsum+400
+        #                 i=i+1
+        #             elif l[i]=="C" and l[j]=="M":
+        #                 totalsum=totalsum+900
+        #                 i=i+1
+
+        #         elif l[i]=="D":
+        #             totalsum=totalsum+500
+        #         elif l[i]=="M":
+        #             totalsum=totalsum+1000
+
+        # return(totalsum)
+
+        translations = {
+                    "I": 1,
+                    "V": 5,
+                    "X": 10,
+                    "L": 50,
+                    "C": 100,
+                    "D": 500,
+                    "M": 1000
+                }
+        number = 0
+        s = s.replace("IV", "IIII").replace("IX", "VIIII")
+        s = s.replace("XL", "XXXX").replace("XC", "LXXXX")
+        s = s.replace("CD", "CCCC").replace("CM", "DCCCC")
+        for char in s:
+            number += translations[char]
+        return number

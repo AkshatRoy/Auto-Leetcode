@@ -1,0 +1,29 @@
+class Solution:
+    def is_exist(self, s, subst_len, word_len, word2cnt, idx):
+        word2cnt_copy = word2cnt.copy()
+        
+        for i in range(idx, idx + subst_len, word_len):
+            word = s[i:i + word_len]
+            if word2cnt_copy[word] == 0:
+                return False
+            else:
+                word2cnt_copy[word] -= 1
+
+        return True
+    
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        str_len = len(s)
+        
+        words_cnt = len(words)
+        word_len = len(words[0])
+        
+        word2cnt = collections.Counter(words)
+        
+        res = []
+        
+        # word_length * words_count - substr length
+        for idx in range(str_len - word_len * words_cnt + 1):
+            if self.is_exist(s, word_len * words_cnt, word_len, word2cnt, idx):
+                res.append(idx)
+        
+        return res

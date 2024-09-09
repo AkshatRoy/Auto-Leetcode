@@ -1,0 +1,11 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        hm = defaultdict(int)
+
+        for i in nums:
+            hm[i]+=1
+            
+            if hm[i] == 3:
+                hm.pop(i)
+
+        return list(hm.keys())[0]

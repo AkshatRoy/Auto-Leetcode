@@ -1,0 +1,23 @@
+class Solution:
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
+        def inOrder(root):
+            if root == None:
+                return
+            inOrder(root.left)
+            inorder_list.append(root)
+            inOrder(root.right)
+
+        inorder_list = []
+        inOrder(root)
+
+        for node in inorder_list:
+            print(node.val)
+        
+        misplaced_nodes = []
+        
+        for i in range(1, len(inorder_list)):
+            if inorder_list[i-1].val > inorder_list[i].val:
+                misplaced_nodes.append(inorder_list[i-1])
+                misplaced_nodes.append(inorder_list[i])
+        
+        misplaced_nodes[0].val, misplaced_nodes[-1].val = misplaced_nodes[-1].val, misplaced_nodes[0].val
