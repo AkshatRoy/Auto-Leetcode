@@ -1,0 +1,51 @@
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        if numerator == 0 or denominator == 0:
+            return "0"
+        else:
+            s = []
+            if numerator * denominator < 0:
+                s.append('-')
+            n = abs(numerator)
+            d = abs(denominator)
+            i = 0
+
+            lam, mu = floyd(lambda n: (n % d) * 10, n)
+
+            if mu == 0:
+                mu += 1
+
+            while n != 0 and i < lam + mu:
+                if i == 1:
+                    s.append('.')
+                if i == mu:
+                    s.append('(')
+                s.append(str(n // d))
+
+                n %= d
+                n *= 10
+                i += 1
+                if i == mu + lam:
+                    s.append(')')
+
+            return ''.join(s)
+
+
+def floyd(func, x0):
+    tort = func(x0)
+    hare = func(func(x0))
+    mu   = 0
+    lam  = 1
+    while tort != hare:
+        tort = func(tort)
+        hare = func(func(hare))
+    tort = x0
+    while tort != hare:
+        tort = func(tort)
+        hare = func(hare)
+        mu += 1
+    hare = func(tort)
+    while tort != hare:
+        hare = func(hare)
+        lam += 1
+    return (lam, mu)

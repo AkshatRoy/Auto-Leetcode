@@ -1,0 +1,15 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ob = 0 #opening brackets count
+        cb = 0 #closing brackets count
+        ans = []
+        def bt(init, ob, cb):
+            if len(init) == 2*n:
+                ans.append(init)
+                return
+            if ob<n:
+                bt(init+"(", ob+1, cb)
+            if cb<ob:
+                bt(init+")", ob, cb+1)
+        bt("", ob, cb)
+        return ans

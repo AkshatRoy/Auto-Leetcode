@@ -1,0 +1,10 @@
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+
+        cur_max = 0
+        for i,num in enumerate(nums):
+            if i <= cur_max:
+                cur_max = max(cur_max, i + num)
+        
+        return cur_max >= len(nums) - 1
+        

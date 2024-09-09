@@ -1,0 +1,23 @@
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        if n == "":
+            return ""
+        nums = [i + 1 for i in range(n)]
+        ans = ""
+        permute = 1
+        for i in range(n):
+            permute *= (i + 1)
+        for i in range(n):
+            i = n - i
+            permute /= i
+            if permute != int(permute):
+                permute = int(permute) + 1
+            permute = int(permute)
+            num = k / permute
+            if num != float(int(num)):
+                num = int(num) + 1
+            num = int(num)
+            ans += str(nums[num - 1])
+            nums.pop(num - 1)
+            k = k % permute
+        return ans

@@ -1,0 +1,83 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        # Iterative: Single Stack
+        if not root:
+            return []
+
+        reached, stack = [], []
+        curr, most_recently_reached = root, None
+
+        while stack or curr:
+            if curr:
+                stack.append(curr)
+                curr = curr.left
+            else:
+                peek_node = stack[-1]
+                # If right child exists and hasn't been visited, move curr to 
+                # right child (right subtree).
+                if peek_node.right and peek_node.right != most_recently_reached:
+                    curr = peek_node.right 
+                else:
+                    # As node is leaf process the node. 
+                    node = stack.pop()
+                    reached.append(node.val)
+                    most_recently_reached = node
+        
+        return reached
+
+        # O(n) time
+        # O(n) space
+
+
+    def postorderTraversal2(self, root: Optional[TreeNode]) -> List[int]:
+        # Iterative: Two Stacks
+        if root == None:
+            return []
+
+        reached = []
+        stack1, stack2 = [], []
+
+        stack1.append(root)
+        while stack1:
+            node = stack1.pop()
+            stack2.append(node)
+
+            if node.left:
+                stack1.append(node.left)
+            if node.right:
+                stack1.append(node.right)
+        
+        while stack2:
+            node = stack2.pop()
+            reached.append(node.val)
+        
+        return reached
+    
+        # O(n) time
+        # O(n) space
+
+
+    def postorderTraversal3(self, root: Optional[TreeNode]) -> List[int]:
+        # Recursive 
+        reached = []
+
+        def helper(root):
+            if root == None:
+                return 
+
+            helper(root.left)
+            helper(root.right)
+            reached.append(root.val)
+
+        helper(root) 
+        return reached
+    
+        # O(n) time 
+        # O(n) space
